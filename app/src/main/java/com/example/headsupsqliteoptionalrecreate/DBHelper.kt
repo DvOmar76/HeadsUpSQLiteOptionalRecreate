@@ -32,18 +32,23 @@ class DBHelper(context: Context):SQLiteOpenHelper(context,"Celebrities",null,1) 
     {
         val celebrities=ArrayList<Celebrity>()
         val cursor:Cursor=dbReade.query("Celebrities",null,null,null,null,null,null)
-        cursor.moveToFirst()
-        while (cursor.moveToNext())
-        {
-            val id=cursor.getInt(cursor.getColumnIndex("id"))
-            val name=cursor.getString(cursor.getColumnIndex("name"))
-            val taboo1=cursor.getString(cursor.getColumnIndex("taboo1"))
-            val taboo2=cursor.getString(cursor.getColumnIndex("taboo2"))
-            val taboo3=cursor.getString(cursor.getColumnIndex("taboo3"))
+      if (cursor.moveToFirst()){
+            var id=cursor.getInt(cursor.getColumnIndex("id"))
+            var name=cursor.getString(cursor.getColumnIndex("name"))
+            var taboo1=cursor.getString(cursor.getColumnIndex("taboo1"))
+            var taboo2=cursor.getString(cursor.getColumnIndex("taboo2"))
+            var taboo3=cursor.getString(cursor.getColumnIndex("taboo3"))
             celebrities.add(Celebrity(id,name,taboo1,taboo2,taboo3))
+            while (cursor.moveToNext())
+            {
+                 id=cursor.getInt(cursor.getColumnIndex("id"))
+                 name=cursor.getString(cursor.getColumnIndex("name"))
+                 taboo1=cursor.getString(cursor.getColumnIndex("taboo1"))
+                 taboo2=cursor.getString(cursor.getColumnIndex("taboo2"))
+                 taboo3=cursor.getString(cursor.getColumnIndex("taboo3"))
+                celebrities.add(Celebrity(id,name,taboo1,taboo2,taboo3))
+            }
         }
-       val hh=celebrities
-
         cursor.close()
         return celebrities
 
